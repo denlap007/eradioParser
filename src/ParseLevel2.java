@@ -183,78 +183,77 @@ public class ParseLevel2 {
      * @throws IOException
      */
     public boolean validUrl(String theUrl, int conAttempts) throws IOException{
-		long total_time=0, endTime=0;
-		long startTime = System.currentTimeMillis();
-        URL link = new URL(theUrl);
-        int CONNECT_TIMEOUT = 5000, READ_TIMEOUT = 2000;
-        
-	    HttpURLConnection huc =  (HttpURLConnection)  link.openConnection(); 
-	    huc.setRequestProperty("User-Agent", userAgent);
-	    huc.setConnectTimeout(CONNECT_TIMEOUT);
-	    huc.setReadTimeout(READ_TIMEOUT);
-	    try {
-			huc.connect();
-		} catch (java.net.ConnectException e) {
-			print(e.getMessage()+"\n");
-			if(e.getMessage().equalsIgnoreCase("Connection timed out")){
-				if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
-					System.out.println("Recurrencing validUrl method...");
-					return validUrl(theUrl, conAttempts+1);
-				}
-				else
-					return false;
-			}
-			else
-				return false;
-		} catch(java.net.SocketTimeoutException e){
-			print(e.getMessage()+"\n");
-			if(e.getMessage().equalsIgnoreCase("connect timed out")){
-				if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
-					System.out.println("Recurrencing validUrl method...");
-					return validUrl(theUrl, conAttempts+1);
-				}
-				else
-					return false;
-			}
-			else
-				return false;
-		}catch(IOException e){
-			print(e.getMessage()+"\n");
-			return false;
-		}
-        UrlValidator urlValidator = new UrlValidator();
+    	long total_time=0, endTime=0;
+    	long startTime = System.currentTimeMillis();
+    	URL link = new URL(theUrl);
+    	int CONNECT_TIMEOUT = 5000, READ_TIMEOUT = 2000;
+    	
+    	HttpURLConnection huc =  (HttpURLConnection)  link.openConnection(); 
+    	huc.setRequestProperty("User-Agent", userAgent);
+    	huc.setConnectTimeout(CONNECT_TIMEOUT);
+    	huc.setReadTimeout(READ_TIMEOUT);
+    	try {
+    		huc.connect();
+    	} catch (java.net.ConnectException e) {
+    		print(e.getMessage()+"\n");
+    		if(e.getMessage().equalsIgnoreCase("Connection timed out")){
+    			if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
+    				System.out.println("Recurrencing validUrl method...");
+    				return validUrl(theUrl, conAttempts+1);
+    			}
+    			else
+    				return false;
+    		}
+    		else
+    			return false;
+    	} catch(java.net.SocketTimeoutException e){
+    		print(e.getMessage()+"\n");
+    		if(e.getMessage().equalsIgnoreCase("connect timed out")){
+    			if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
+    				System.out.println("Recurrencing validUrl method...");
+    				return validUrl(theUrl, conAttempts+1);
+    			}
+    			else
+    				return false;
+    		}
+    		else
+    			return false;
+    	}catch(IOException e){
+    		print(e.getMessage()+"\n");
+    		return false;
+    	}
+    	UrlValidator urlValidator = new UrlValidator();
     	if(urlValidator.isValid(theUrl)==true){
     		System.out.println("valid url form");
-            if(huc.getContentType()!=null) {
-            	System.out.println("Content: "+huc.getContentType());
-            	if(huc.getContentType().equals("text/html") || huc.getContentType().equals("unknown/unknown")){
-            		if( getResposeCode(theUrl, 0) >= java.net.HttpURLConnection.HTTP_BAD_REQUEST ){
-            			System.out.println("Server Response Code: "+ getResposeCode(theUrl, 0));
-            			return false;
-            		}               		
-            	}
-            	System.out.println(huc.getContentType());
-            	endTime = System.currentTimeMillis();
-            	total_time = total_time + (endTime-startTime);
-        		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
-        		return true;
-            }     		
-        	else {//edw erxetai an den prolavei na diavasei h an einai null to content
-        		endTime = System.currentTimeMillis();
-            	total_time = total_time + (endTime-startTime);
-        		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
-        		if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
-        			System.out.println("Recurrencing validUrl method...");
-        			return validUrl(theUrl, conAttempts+1);
-        		}
-        		else
-        			return false;
-        	}
-        		
+    		if(huc.getContentType()!=null) {
+    			System.out.println("Content: "+huc.getContentType());
+    			if(huc.getContentType().equals("text/html") || huc.getContentType().equals("unknown/unknown")){
+    				if( getResposeCode(theUrl, 0) >= java.net.HttpURLConnection.HTTP_BAD_REQUEST ){
+    					System.out.println("Server Response Code: "+ getResposeCode(theUrl, 0));
+    					return false;
+    				}               		
+    			}
+    			System.out.println(huc.getContentType());
+    			endTime = System.currentTimeMillis();
+    			total_time = total_time + (endTime-startTime);
+    			System.out.println("Total elapsed time is :"+ total_time+"\n"); 
+    			return true;
+    		}     		
+    		else {//edw erxetai an den prolavei na diavasei h an einai null to content
+    			endTime = System.currentTimeMillis();
+    			total_time = total_time + (endTime-startTime);
+    			System.out.println("Total elapsed time is :"+ total_time+"\n"); 
+    			if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
+    				System.out.println("Recurrencing validUrl method...");
+    				return validUrl(theUrl, conAttempts+1);
+    			}
+    			else
+    				return false;
+    		}	
     	}
     	else {
     		endTime = System.currentTimeMillis();
-        	total_time = total_time + (endTime-startTime);
+    		total_time = total_time + (endTime-startTime);
     		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
     		return false;    		
     	}
