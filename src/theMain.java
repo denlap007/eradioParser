@@ -6,29 +6,39 @@ package noThreads;
  * 2. String(s). The Strings are of the form of a Url. i.e. http://www.e-radio.gr/locations/athens.asp
  **/
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class theMain {
 
 	/**
 	 * @param args
-	 * @throws IOException 
-	 * @throws IOException 
-	 * @throws InterruptedException 
+	 * @throws IOException
+	 * @throws InterruptedException
 	 */
-	public static void main(String[] args) throws IOException, InterruptedException  {
+	public static void main(String[] args) throws IOException, InterruptedException{
 		//variables that hold time in msec, in order to calculate
 		//how much time lasts a program execution
 		long total_time=0, startTime=0, endTime=0;
 		startTime = System.currentTimeMillis();
 		
 		/*
+		 * This structure will hold all the file names used on this project.
+		 * Disk files are used to store the output and check data validity 
+		 * during different steps of program's execution (debugging). 
+		 * WILL BE REMOVED IN THE FUTURE.
+		 */
+		
+		ArrayList<String> diskFiles = new ArrayList<String>();
+		
+		/*
 		 * Create an object of Class ProcessCla in order to process
 		 * command line arguments if necessary. This Object is
-		 * also necessary for the menu to work, as it accesses 
+		 * also necessary for the menu to work, as it (the Menu) accesses 
 		 * the static fields of ProcessCla Class.
 		 */
-		ProcessCla claObject = new ProcessCla();;
+		ProcessCla claObject = new ProcessCla();
 		
 		/*
 		 * process command line arguments
@@ -66,7 +76,7 @@ public class theMain {
 		
 		/*
 		 * Create an object of Class ParseLevel1. Parse the codes to GetFirstLinks method
-		 * and get the firts links of the radio stations. From the extracted links
+		 * and get the first links of the radio stations. From the extracted links
 		 * get the tiles with the getTitles method.
 		 */
 		
@@ -83,17 +93,24 @@ public class theMain {
 		
 		endTime = System.currentTimeMillis();
 		total_time = total_time + (endTime-startTime);
-		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
-	
-		System.out.println("Parsed in total: "+
+		System.out.println("Total elapsed time is :"+ total_time+" msec\n"); 
+		
+		//Cleanup, delete unnecessary files
+		diskFiles.add(ParseLevel1.linksFileName);
+		diskFiles.add(ParseLevel1.titlesFileNme);
+		diskFiles.add(ParseLevel2.eradioLinksFileName);
+		diskFiles.add(ParseLevel2.links2FileName);
+		for(String name : diskFiles){
+			File a = new File(name);
+			a.delete();
+		}
+
+		System.out.println("--> Parsed in total: "+
 				ParseLevel1.stationLinks1.size()+
-				" station links. Valid links: +" +
+				" station links. Valid links: " +
 				ParseLevel2.eradioLinks.size()/2+
+				"/"+
+				ParseLevel1.stationLinks1.size()+
 				"\nProgram Exiting...");
-		
-		
-
-
 	}
-
 }

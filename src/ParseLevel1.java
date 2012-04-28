@@ -153,9 +153,6 @@ public class ParseLevel1 {
 					 title = stationLink.substring(start, end);
 					 title = title.replace("%", " ");
 					 System.out.println("Station Title: "+ title);
-					 //System.out.println(start);
-					 //System.out.println(end);
-					 
 					 titles.add(title);
 					 writeToFile("titles.txt", title);
 				 }

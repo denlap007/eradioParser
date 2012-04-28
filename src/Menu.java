@@ -35,6 +35,7 @@ public class Menu {
 	    	 System.out.println("Error!");
 	    	 System.exit(1);
 	     }
+	     
 		switch (choice) {
 		case(1):	//GET all the e-radio category links (in order to get all the links)
 			doc = Jsoup.connect(URL).get();
@@ -79,6 +80,7 @@ public class Menu {
 		    	 System.out.println("Wrong selection...");
 		     
 		     break;
+		     
 		case(3)://Get LOCATIONS
 			doc = Jsoup.connect(URL).get();
 			Elements locationLinks = doc.select("div[class=menuOptions]").select("a[href*=/locations/]");
@@ -119,7 +121,7 @@ public class Menu {
 		     
 		case(4):
 			System.out.println("Exiting program...");
-			System.exit(1);
+			System.exit(0);
 			break;
 
 		default:

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Playlist {
 	private String fileName = new String("xml_ready_links.txt");
 	
+	//method used on dev stage to quickly get the links from file and not wait for a run execution
 	public ArrayList<String> loadFromFile(String linksFile) throws IOException{
     	String inputLine;
 		// Open file

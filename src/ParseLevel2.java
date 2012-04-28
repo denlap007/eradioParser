@@ -19,7 +19,9 @@ public class ParseLevel2 {
 	static ArrayList<String> stationLinks2 = new ArrayList<String>();
 	static ArrayList<String> eradioLinks = new ArrayList<String>();
 	private ArrayList<String> eradio_BAD_Links = new ArrayList<String>();
-	private String links2FileName= new String("theLinks_2.txt");
+	static  String links2FileName= new String("theLinks_2.txt");
+	static String eradioLinksFileName = new String("eradio_links.txt");
+	private String eradioBadLinksFileName = new String("eradio_BAD_links.txt");
 	private String userAgent = new String("Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
 
 	/**
@@ -130,8 +132,8 @@ public class ParseLevel2 {
     		if(in!=null)
     			in.close();
     	}
-    	ParseLevel1.writeLinksToFile("eradio_links.txt", eradioLinks);
-    	ParseLevel1.writeLinksToFile("eradio_BAD_links.txt", eradio_BAD_Links);
+    	ParseLevel1.writeLinksToFile(eradioLinksFileName, eradioLinks);
+    	ParseLevel1.writeLinksToFile(eradioBadLinksFileName, eradio_BAD_Links);
     }
     
     /**
@@ -143,6 +145,9 @@ public class ParseLevel2 {
      */
     public int getResposeCode(String theUrl, int conAttempts) throws IOException{// throws IOException 
 	    URL newUrl = new URL(theUrl); 
+	    //These codes are returned to indicate either fault or not.
+	    int ERROR_CODE = 1000, OK_CODE = 0;
+	    
 	    HttpURLConnection huc =  (HttpURLConnection)  newUrl.openConnection(); 
 	    huc.setRequestMethod("HEAD"); 
 	    huc.setRequestProperty("User-Agent", userAgent);
@@ -152,45 +157,45 @@ public class ParseLevel2 {
 			return huc.getResponseCode();
 		} catch (java.net.SocketException e) {
 			if(e.getMessage().equalsIgnoreCase("Unexpected end of file from server")){
-				return 0; // link still valid so return a small positive int that isn't a http status code
+				return OK_CODE; // link still valid so return a small positive int that isn't a http status code
 			}
 			else
-				return 1000; //error, return a large int that isn't included in any http status code
+				return ERROR_CODE; //error, return a large int that isn't included in any http status code
 		}catch (java.net.SocketTimeoutException e){
 			if(e.getMessage().equalsIgnoreCase("Read timed out")){
 				if(conAttempts!=MAX_CONNECTION_ATTEMPTS)
 					return getResposeCode(theUrl, conAttempts+1);
 				else
-					return 1000; //ERROR return a large int that isn't included in any http status code
+					return ERROR_CODE; //ERROR return a large int that isn't included in any http status code
 			}
 			else
-				return 1000;
+				return ERROR_CODE;
 		}catch (IOException e){
 			e.printStackTrace();
-			return 1000;	//error, return a large int that isn't included in any http status code		
+			return ERROR_CODE;	//error, return a large int that isn't included in any http status code		
 		}
     }
     
-    
     /**
-     * 
      * @param theUrl
      * @param conAttempts
      * @return
      * @throws IOException
      */
     public boolean validUrl(String theUrl, int conAttempts) throws IOException{
-		long total_time=0;
+		long total_time=0, endTime=0;
 		long startTime = System.currentTimeMillis();
         URL link = new URL(theUrl);
+        int CONNECT_TIMEOUT = 5000, READ_TIMEOUT = 2000;
+        
 	    HttpURLConnection huc =  (HttpURLConnection)  link.openConnection(); 
 	    huc.setRequestProperty("User-Agent", userAgent);
-	    huc.setConnectTimeout(5000);
-	    huc.setReadTimeout(2000);
+	    huc.setConnectTimeout(CONNECT_TIMEOUT);
+	    huc.setReadTimeout(READ_TIMEOUT);
 	    try {
 			huc.connect();
 		} catch (java.net.ConnectException e) {
-			e.printStackTrace();
+			print(e.getMessage()+"\n");
 			if(e.getMessage().equalsIgnoreCase("Connection timed out")){
 				if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
 					System.out.println("Recurrencing validUrl method...");
@@ -202,7 +207,7 @@ public class ParseLevel2 {
 			else
 				return false;
 		} catch(java.net.SocketTimeoutException e){
-			e.printStackTrace();
+			print(e.getMessage()+"\n");
 			if(e.getMessage().equalsIgnoreCase("connect timed out")){
 				if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
 					System.out.println("Recurrencing validUrl method...");
@@ -214,7 +219,7 @@ public class ParseLevel2 {
 			else
 				return false;
 		}catch(IOException e){
-			e.printStackTrace();
+			print(e.getMessage()+"\n");
 			return false;
 		}
         UrlValidator urlValidator = new UrlValidator();
@@ -229,13 +234,13 @@ public class ParseLevel2 {
             		}               		
             	}
             	System.out.println(huc.getContentType());
-            	long endTime = System.currentTimeMillis();
+            	endTime = System.currentTimeMillis();
             	total_time = total_time + (endTime-startTime);
         		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
         		return true;
             }     		
         	else {//edw erxetai an den prolavei na diavasei h an einai null to content
-        		long endTime = System.currentTimeMillis();
+        		endTime = System.currentTimeMillis();
             	total_time = total_time + (endTime-startTime);
         		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
         		if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
@@ -248,7 +253,7 @@ public class ParseLevel2 {
         		
     	}
     	else {
-    		long endTime = System.currentTimeMillis();
+    		endTime = System.currentTimeMillis();
         	total_time = total_time + (endTime-startTime);
     		System.out.println("Total elapsed time is :"+ total_time+"\n"); 
     		return false;    		
