@@ -62,9 +62,10 @@ public class theMain {
 		/*
 		 * Print GPL message
 		 */
-		System.out.println("EradioParser Copyright (C) 2012 Lappas Dionysis \n"+
-				"This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are\n" +
-				"welcome to redistribute it under certain conditions; details: http://www.gnu.org/licenses/gpl.txt \n");
+		System.out.println("\nEradioParser 1.0 Copyright (C) 2012 Lappas Dionysis \n"+
+				"This program comes with ABSOLUTELY NO WARRANTY. This is free software,\n" +
+				"and you are welcome to redistribute it under certain conditions; \n" +
+				"details: http://www.gnu.org/licenses/gpl.txt \n");
 
 		
 		/*
