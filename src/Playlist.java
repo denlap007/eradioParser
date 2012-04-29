@@ -25,16 +25,32 @@
 package noThreads;
 
 import static noThreads.ParseLevel1.*;
+import static noThreads.ParseLevel2.*;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
+
+import com.melloware.jspiff.jaxp.XspfPlaylist;
+import com.melloware.jspiff.jaxp.XspfPlaylistTrackList;
+import com.melloware.jspiff.jaxp.XspfTrack;
+
+
 public class Playlist {
-	private String fileName = new String("xml_ready_links.txt");
 	
 	//method used on dev stage to quickly get the links from file and not wait for a run execution
 	public ArrayList<String> loadFromFile(String linksFile) throws IOException{
@@ -54,16 +70,54 @@ public class Playlist {
         return links;
 	}
 	
+	//used only for debugging purposes
 	 public static void  writeXmlReadyLinks(String fileName, ArrayList<String> theLinks) throws IOException {
 		 for(String link : theLinks) {
 			 writeToFile(fileName, org.apache.commons.lang3.StringEscapeUtils.escapeXml(link));
 		 }	 
 	 }
-	
-	public void makeValidXmlLinks(ArrayList<String> links) throws IOException{
+	//used only for debugging purposes
+	 public void makeValidXmlLinks(ArrayList<String> links) throws IOException{
+		writeXmlReadyLinks("xml_ready_links.txt", links);
+	 }
+	 
+	 public void createPlaylist() throws IOException, DocumentException, SAXException, ParserConfigurationException{
+		 String xmlObject = null, title = null;
+		 boolean flag = true;
+		 XspfPlaylist playlist = new XspfPlaylist();
+		 playlist.setTitle("My Playlist");
+		 playlist.setVersion("1");
 
-		writeXmlReadyLinks(fileName, links);
-		}
-		
-	}
+		 // create track list first
+		 XspfPlaylistTrackList tracks = new XspfPlaylistTrackList();
+	 
+		 for(int i=0; i<eradioLinks.size();i++){
+			 if(flag==true){
+				 flag=false;
+				 title = org.apache.commons.lang3.StringEscapeUtils.escapeXml(eradioLinks.get(i));
+			 }
+			 else{
+				 flag=true;
+				 //escape the xml characters of the url
+				 xmlObject = org.apache.commons.lang3.StringEscapeUtils.escapeXml(eradioLinks.get(i));
+				 
+				 // now create track, set title and add to list
+				 XspfTrack track = new XspfTrack();
+				 track.setTitle(title);
+				 track.setLocation(xmlObject);
+				 tracks.addTrack(track);  
+			 }
+		 }
+		 // add tracks to playlist
+		 playlist.setPlaylistTrackList(tracks);
+
+		 //or use Dom4j to output the playlist
+		 File file = new File("playlist.xspf");
+		 OutputFormat format = OutputFormat.createPrettyPrint();
+		 XMLWriter writer = new XMLWriter(new FileWriter(file), format);
+		 Document doc = DocumentHelper.parseText(playlist.makeTextDocument());
+		 writer.write(doc);
+		 writer.close();
+	 }
+}
 

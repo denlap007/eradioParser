@@ -38,14 +38,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.dom4j.DocumentException;
+import org.xml.sax.SAXException;
+
 public class theMain {
 
 	/**
 	 * @param args
 	 * @throws IOException
 	 * @throws InterruptedException
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
+	 * @throws DocumentException 
 	 */
-	public static void main(String[] args) throws IOException, InterruptedException{
+	public static void main(String[] args) throws IOException, InterruptedException, DocumentException, SAXException, ParserConfigurationException{
 		//variables that hold time in msec, in order to calculate
 		//how much time lasts a program execution
 		long total_time=0, startTime=0, endTime=0;
@@ -125,11 +133,10 @@ public class theMain {
 		pl2.getFinalLinks(ParseLevel2.stationLinks2, ParseLevel1.titles);
 		
 		Playlist p = new Playlist();
-		p.makeValidXmlLinks(ParseLevel2.eradioLinks);
+		p.createPlaylist();
 		
 		endTime = System.currentTimeMillis();
 		total_time = total_time + (endTime-startTime);
-		System.out.println("Total elapsed time is :"+ total_time+" msec\n"); 
 		
 		//Cleanup, delete unnecessary files
 		diskFiles.add(ParseLevel1.linksFileName);
@@ -140,10 +147,14 @@ public class theMain {
 			File a = new File(name);
 			a.delete();
 		}
-
-		System.out.println("--> Parsed in total: "+
+		
+		System.out.println("\n\nRUN SUMMARY:\n" +
+				"Playlist successfully generated! \n"+
+				"Elapsed time: "+ total_time+" msec\n"+
+				"Parsed: "+
 				ParseLevel1.stationLinks1.size()+
-				" station links. Valid links: " +
+				" station links. \n"+
+				"Valid links: " +
 				ParseLevel2.eradioLinks.size()/2+
 				"/"+
 				ParseLevel1.stationLinks1.size()+
