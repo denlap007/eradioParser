@@ -4,3 +4,5 @@ Author: Lappas Dionysis (Dio) <dio@freelabs.net>
 DESCRIPTION: This java program extracts the urls of radio stations found on e-radio.gr, so that you can easily create a playlist.
 
 LICENSE: GPL
+
+THANKS TO: I want to thank my dear friend and software developer Mpampalis Mpampis for his implementation idea of using a Java library to create the final XML playlist.
