@@ -43,7 +43,7 @@ public class ParseLevel2 {
 	static ArrayList<String> stationLinks2 = new ArrayList<String>();
 	static ArrayList<String> eradioLinks = new ArrayList<String>();
 	private ArrayList<String> eradio_BAD_Links = new ArrayList<String>();
-	static  String links2FileName= new String("theLinks_2.txt");
+	static String links2FileName= new String("theLinks_2.txt");
 	static String eradioLinksFileName = new String("eradio_links.txt");
 	private String eradioBadLinksFileName = new String("eradio_BAD_links.txt");
 	private String userAgent = new String("Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
