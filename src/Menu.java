@@ -44,7 +44,7 @@ public class Menu {
 		Document doc = null;
 		BufferedReader br = null;
 		
-		System.out.println("\t\t--> MENU Options <--" +
+		System.out.println("****************** MENU Options ****************** "+
 				"\n1. Extract the whole <e-radio.gr> station playlist. " +
 				"\n2. View the available stations by Category and then get a playlist." +
 				"\n3. View the available stations by Location and then get a playlist." +
