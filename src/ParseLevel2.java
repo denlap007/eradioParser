@@ -112,7 +112,7 @@ public class ParseLevel2 {
 								address.openStream()));
 					} 
     			catch (IOException e) {
-					e.printStackTrace();
+    				print(e.getMessage()+"\n");
 					print("INVALID LINK --> %s. Event Handled", sLink);
 					threw=true;
 					}
