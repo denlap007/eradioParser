@@ -100,8 +100,11 @@ public class Menu {
 		    			 StringEscapeUtils.unescapeHtml4(categoryLinks.get(choice-1).html())+
 		    			 "> category");
 		     }
-		     else
+		     else{
 		    	 System.out.println("Wrong selection...");
+		    	 System.out.println("Exiting program...");
+		    	 System.exit(1);
+		     }
 		     
 		     break;
 		     
