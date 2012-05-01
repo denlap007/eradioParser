@@ -63,7 +63,7 @@ public class Menu {
 		switch (choice) {
 		case(1):	//GET all the e-radio category links (in order to get all the links)
 			doc = Jsoup.connect(URL).get();
-			Elements links = doc.select("div[class=menuOptions]").select("a[href*=/categories/]");
+			Elements links = doc.select("div[class=menuOptions]").select("a[href*=/locations/]");
 			
 			for(Element link : links)
 				ProcessCla.theUrls.add(link.attr("abs:href"));
