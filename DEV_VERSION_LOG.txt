@@ -2,25 +2,32 @@
 DEVELOPMENT CHANGES FROM V.1.0 to v1.1
 **************************************
 
--->Added Class DefaultCaller.
-This Class holds all the static methods that are used from all the other Classes. In addition, it holds all the important information such as:
+--> Added Class DefaultCaller.
+This Class holds all the static methods that are used from all the other Classes. In addition, it holds 
+all the important information such as:
 filePath if set from command line. 'filePath'
 Initial Urls loaded from command line or from the menu. 'theUrls'
 Final radio station titles and urls in that order. 'eradioLinks'
 
 All methods and variables of this Class are static.
 
--->Removed all static methods from all Classes. Added to DefaultCaller instead.
+--> Removed all static methods from all Classes. Added to DefaultCaller instead.
 
--->Removed (moved to DefaultCaller or changed to private) all static variables from all Classes.
+--> Removed (moved to DefaultCaller or changed to private) all static variables from all Classes.
 
--->Getters and Setters are now there for all Class private members.
+--> Getters and Setters are now there for all Class private members.
 
 -->Changed the way links are Loaded from the Menu! 
-Element <div> with "id=paneContainer" is parsed instead of <div> with "class=menuOptions" in order to get the category and location links. That results to adding the Cyprus location that previously wasn't included.
+Element <div> with "id=paneContainer" is parsed instead of <div> with "class=menuOptions" in order to get
+the category and location links. That results to adding the Cyprus location that previously wasn't included.
 
--->Recursive method parseUrl() is called every time a url is passed into a DOM document! That way, it is ensured the stability of the program, as Exceptions are handled by recursively calling the method MAX_CONNECTION_ATTEMPTS times. If a url cannot be passed to a DOM document due to some error, a message is printed and it is bypassed, without forcing the program to crash! That addition resolved many stability issues that could arise at some (more rare though) time!
+-->Recursive method parseUrl() is called every time a url is passed into a DOM document! That way, it is 
+ensured the stability of the program, as Exceptions are handled by recursively calling the method
+MAX_CONNECTION_ATTEMPTS times. If a url cannot be passed to a DOM document due to some error, a message 
+is printed and it is bypassed, without forcing the program to crash! That addition resolved many stability 
+issues that could arise at some (more rare though) time!
 
-Also, the method was slightly changed by making a connection first and setting the user agent and then passing the html to a DOM document.
+Also, the method was slightly changed by making a connection first and setting the user agent and then passing 
+the html to a DOM document.
 
 -->Changed version from 1.0 to 1.1 in GPL printing message.
