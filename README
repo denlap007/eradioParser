@@ -6,3 +6,5 @@ DESCRIPTION: This java program extracts the radio station urls and their names f
 LICENSE: GPL
 
 THANKS TO: I want to thank my dear friend and software developer Mpampalis Mpampis for his implementation idea of using a Java library to create the final XML playlist.
+
+CURRENT VERSION: 1.1
