@@ -24,13 +24,13 @@
  */
 package noThreads;
 
+import static noThreads.DefaultCaller.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -61,18 +61,18 @@ public class Menu {
 	     }
 	     
 		switch (choice) {
-		case(1):	//GET all the e-radio category links (in order to get all the links)
-			doc = Jsoup.connect(URL).get();
-			Elements links = doc.select("div[class=menuOptions]").select("a[href*=/locations/]");
+		case(1):	//GET all the e-radio location links (in order to get all the links)
+			doc = parseUrl(URL, 0);
+			Elements links = doc.select("div[id=paneContainer]").select("a[href*=/locations/]");
 			
 			for(Element link : links)
-				ProcessCla.theUrls.add(link.attr("abs:href"));
+				theUrls.add(link.attr("abs:href"));
 			 System.out.println("...Processing <All e-radio> station links");
 			 break;
 			
 		case(2):	//Get CATEGORIES
-			doc = Jsoup.connect(URL).get();
-			Elements categoryLinks = doc.select("div[class=menuOptions]").select("a[href*=/categories/]");
+			doc = parseUrl(URL, 0);
+			Elements categoryLinks = doc.select("div[id=paneContainer]").select("a[href*=/categories/]");
 			
 			System.out.println("E-radio stations available categories: " +
 					"\n");
@@ -94,7 +94,7 @@ public class Menu {
 		    	 System.exit(1);
 		     }
 		     if(choice<=categoryLinks.size() && choice>=1){
-		    	 ProcessCla.theUrls.add(categoryLinks.get(choice-1).attr("abs:href"));
+		    	 theUrls.add(categoryLinks.get(choice-1).attr("abs:href"));
 		    	 System.out.println(categoryLinks.get(choice-1).attr("abs:href"));
 		    	 System.out.println("...Processing the <"+
 		    			 StringEscapeUtils.unescapeHtml4(categoryLinks.get(choice-1).html())+
@@ -109,8 +109,8 @@ public class Menu {
 		     break;
 		     
 		case(3)://Get LOCATIONS
-			doc = Jsoup.connect(URL).get();
-			Elements locationLinks = doc.select("div[class=menuOptions]").select("a[href*=/locations/]");
+			doc = parseUrl(URL, 0);
+			Elements locationLinks = doc.select("div[id=paneContainer]").select("a[href*=/locations/]");
 			
 			System.out.println("E-radio stations available locations: " +
 					"\n");
@@ -132,7 +132,7 @@ public class Menu {
 		    	 System.exit(1);
 		     }
 		     if(choice<=locationLinks.size() && choice>=1){
-		    	 ProcessCla.theUrls.add(locationLinks.get(choice-1).attr("abs:href"));
+		    	 theUrls.add(locationLinks.get(choice-1).attr("abs:href"));
 		    	 System.out.println(locationLinks.get(choice-1).attr("abs:href"));
 		    	 System.out.println("...Processing <"+
 		    			 StringEscapeUtils.unescapeHtml4(locationLinks.get(choice-1).html())+

@@ -33,7 +33,6 @@ package noThreads;
  * 1. File Location. Location of file on disk i.e. C://a.txt or /Usr/home/a.txt
  * 2. String(s). The Strings are of the form of a Url. i.e. http://www.e-radio.gr/locations/athens.asp
  **/
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,6 +52,7 @@ public class theMain {
 	 * @throws SAXException 
 	 * @throws DocumentException 
 	 */
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, InterruptedException, DocumentException, SAXException, ParserConfigurationException{
 		//variables that hold time in msec, in order to calculate
 		//how much time lasts a program execution
@@ -86,6 +86,15 @@ public class theMain {
 		ProcessCla claObject = new ProcessCla();
 		
 		/*
+		 * Create an object of class DefautlCaller.
+		 * The caller object is accessed from all object's classes
+		 * as it holds all the static methods along with 
+		 * the filePath, the first urls loaded and the final 
+		 * eradio station links and their names.
+		 */
+		DefaultCaller caller = new DefaultCaller();
+		
+		/*
 		 * process command line arguments
 		 * IF no command line argument inserted load the MENU
 		 * else If there exists only one (1) argument then
@@ -102,14 +111,16 @@ public class theMain {
 			claObject = new ProcessCla();
 			if(args[0].endsWith(".txt")) {
 				claObject.processFile(args[0]);
+				DefaultCaller.setFilePath(claObject.getFilePath());
 			}
 			else {
 				claObject.processStrings(args);	
+				DefaultCaller.setTheUrls(claObject.getTheUrls());
 			}
-
 		}
 		else{
 			claObject.processStrings(args);		
+			DefaultCaller.setTheUrls(claObject.getTheUrls());
 		}
 		
 		/*
@@ -117,7 +128,7 @@ public class theMain {
 		 * the codes of the radio stations
 		 */
 		ParseLevel0 pl0 = new ParseLevel0();
-		pl0.getCodes();	
+		pl0.getStationCodes();	
 		
 		/*
 		 * Create an object of Class ParseLevel1. Parse the codes to GetFirstLinks method
@@ -126,12 +137,12 @@ public class theMain {
 		 */
 		
 		ParseLevel1 pl1 = new ParseLevel1();
-		pl1.getFirstLinks(ParseLevel0.codes);
-		pl1.getTitles();
+		pl1.getFirstLinks(pl0.getCodes());
+		pl1.getStationTitles();
 		
 		ParseLevel2 pl2 = new ParseLevel2();
-		pl2.getSecondLinks(ParseLevel1.stationLinks1);
-		pl2.getFinalLinks(ParseLevel2.stationLinks2, ParseLevel1.titles);
+		pl2.getSecondLinks(pl1.getStationLinks1());
+		pl2.getFinalLinks(pl2.getStationLinks2(), pl1.getTitles());
 		
 		Playlist p = new Playlist();
 		p.createPlaylist();
@@ -139,11 +150,11 @@ public class theMain {
 		endTime = System.currentTimeMillis();
 		total_time = total_time + (endTime-startTime);
 		
-		//Cleanup, delete unnecessary files
-		diskFiles.add(ParseLevel1.linksFileName);
-		diskFiles.add(ParseLevel1.titlesFileNme);
-		diskFiles.add(ParseLevel2.eradioLinksFileName);
-		diskFiles.add(ParseLevel2.links2FileName);
+		//CLEANUP CODE, delete unnecessary files
+		diskFiles.add(pl1.getLinksFileName());
+		diskFiles.add(pl1.getTitlesFileNme());
+		diskFiles.add(pl2.getEradioLinksFileName());
+		diskFiles.add(pl2.getLinks2FileName());
 		for(String name : diskFiles){
 			File a = new File(name);
 			a.delete();
@@ -153,12 +164,12 @@ public class theMain {
 				"Playlist successfully generated! \n"+
 				"Elapsed time: "+ total_time+" msec\n"+
 				"Parsed: "+
-				ParseLevel1.stationLinks1.size()+
+				pl1.getStationLinks1().size()+
 				" station links. \n"+
 				"Valid links: " +
-				ParseLevel2.eradioLinks.size()/2+
+				DefaultCaller.eradioLinks.size()/2+
 				"/"+
-				ParseLevel1.stationLinks1.size()+
+				pl1.getStationLinks1().size()+
 				"\nProgram Exiting...");
 	}
 }

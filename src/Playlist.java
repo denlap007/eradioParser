@@ -24,8 +24,7 @@
  */
 package noThreads;
 
-import static noThreads.ParseLevel1.*;
-import static noThreads.ParseLevel2.*;
+import static noThreads.DefaultCaller.*;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

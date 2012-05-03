@@ -24,7 +24,7 @@
  */
 package noThreads;
 
-import static noThreads.ParseLevel1.*;
+import static noThreads.DefaultCaller.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,13 +40,12 @@ import org.jsoup.select.Elements;
 
 
 public class ParseLevel2 {
-	static ArrayList<String> stationLinks2 = new ArrayList<String>();
-	static ArrayList<String> eradioLinks = new ArrayList<String>();
+	private ArrayList<String> stationLinks2 = new ArrayList<String>();
 	private ArrayList<String> eradio_BAD_Links = new ArrayList<String>();
-	static String links2FileName= new String("theLinks_2.txt");
-	static String eradioLinksFileName = new String("eradio_links.txt");
+	private String links2FileName= new String("theLinks_2.txt");
+	private String eradioLinksFileName = new String("eradio_links.txt");
 	private String eradioBadLinksFileName = new String("eradio_BAD_links.txt");
-	private String userAgent = new String("Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
+
 
 	/**
 	 * 
@@ -55,7 +54,7 @@ public class ParseLevel2 {
 	 */
     public void getSecondLinks(ArrayList<String> theLinks) throws IOException {
     	String temp=null;
-    	Document doc;
+    	Document doc=null;
     	boolean flag;
     	for(String sLink : theLinks) {
     		if(sLink.endsWith(".asx")==true || sLink.endsWith(".swf")==true){
@@ -156,8 +155,8 @@ public class ParseLevel2 {
     		if(in!=null)
     			in.close();
     	}
-    	ParseLevel1.writeLinksToFile(eradioLinksFileName, eradioLinks);
-    	ParseLevel1.writeLinksToFile(eradioBadLinksFileName, eradio_BAD_Links);
+    	writeLinksToFile(eradioLinksFileName, eradioLinks);
+    	writeLinksToFile(eradioBadLinksFileName, eradio_BAD_Links);
     }
     
     /**
@@ -282,4 +281,48 @@ public class ParseLevel2 {
     		return false;    		
     	}
     }
+    /**
+     * Setters and Getters
+     */
+	public ArrayList<String> getStationLinks2() {
+		return stationLinks2;
+	}
+
+	public void setStationLinks2(ArrayList<String> stationLinks2) {
+		this.stationLinks2 = stationLinks2;
+	}
+
+	public ArrayList<String> getEradio_BAD_Links() {
+		return eradio_BAD_Links;
+	}
+
+	public void setEradio_BAD_Links(ArrayList<String> eradio_BAD_Links) {
+		this.eradio_BAD_Links = eradio_BAD_Links;
+	}
+
+	public String getLinks2FileName() {
+		return links2FileName;
+	}
+
+	public void setLinks2FileName(String links2FileName) {
+		this.links2FileName = links2FileName;
+	}
+
+	public String getEradioLinksFileName() {
+		return eradioLinksFileName;
+	}
+
+	public void setEradioLinksFileName(String eradioLinksFileName) {
+		this.eradioLinksFileName = eradioLinksFileName;
+	}
+
+	public String getEradioBadLinksFileName() {
+		return eradioBadLinksFileName;
+	}
+
+	public void setEradioBadLinksFileName(String eradioBadLinksFileName) {
+		this.eradioBadLinksFileName = eradioBadLinksFileName;
+	}
+    
+    
 }

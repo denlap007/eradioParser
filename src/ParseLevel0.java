@@ -24,31 +24,32 @@
  */
 package noThreads;
 
-import java.io.IOException;
+import static noThreads.DefaultCaller.*;
+
 import java.util.ArrayList;
 
-import org.jsoup.Jsoup; 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import static noThreads.ProcessCla.*;
-
 public class ParseLevel0 {
-	static ArrayList<Integer> codes = new ArrayList<Integer>();
+	private ArrayList<Integer> codes = new ArrayList<Integer>();
 	private ArrayList<String> aElements = new ArrayList<String>();
 
-    public void getCodes() throws IOException{
+    public void getStationCodes(){
+    	Document doc = null;
     	for(String aUrl : theUrls){
-
     		// parse the input html of URL into a DOM document
-    		Document doc = Jsoup.connect(aUrl).get();	
-    		
-    		// Select all the <a> elements with [href] attribute that start with 
-    		// "javascript"
-    		Elements links = doc.select("a[href^=javascript]");
-        	for (Element aLink : links)
-        		aElements.add(aLink.outerHtml());
+    		doc = parseUrl(aUrl, 0);
+			 if(doc!=null){
+				 // Select all the <a> elements with [href] attribute that start with 
+				 // "javascript"
+				 Elements links = doc.select("a[href^=javascript]");
+				 for (Element aLink : links)
+					 aElements.add(aLink.outerHtml());	
+			 }
+			 else
+				 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
     	}
     	
     	//Extract the radio codes from <a> elements
@@ -68,16 +69,6 @@ public class ParseLevel0 {
     	debug(codes);
     	System.out.print("\nNumber of Codes: " + codes.size()+"\n");
     }
-    
-    public void debug(ArrayList<Integer> aList){
-    	for(int a : aList)
-    		System.out.println(a); 	
-    }
-    
-    public void debug2(ArrayList<String> aList){
-    	for(String a : aList)
-    		System.out.println(a);	
-    }
 
 
 	/**
@@ -93,5 +84,16 @@ public class ParseLevel0 {
 	public void addaElements(String theUrl) {
 		this.aElements.add(theUrl);
 	}
+	
+	public void setaElements(ArrayList<String> aElements) {
+		this.aElements = aElements;
+	}
 
-}
+	public void setCodes(ArrayList<Integer> codes) {
+		this.codes = codes;
+	}
+
+	public ArrayList<Integer> getCodes() {
+		return codes;
+	}
+}//end Class

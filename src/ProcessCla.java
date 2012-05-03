@@ -35,15 +35,14 @@ import java.util.ArrayList;
 
 
 public final class ProcessCla {
-	static String filePath;
-	static ArrayList<String> theUrls;
-
-	public ProcessCla(){
-		filePath = null;
-		theUrls = new ArrayList<String>();	
-	}
+	private String filePath = null;
+	private ArrayList<String> theUrls = new ArrayList<String>();
 
 	
+	/**
+	 * @param filePath
+	 * @throws IOException
+	 */
 	public void processFile(String filePath) throws IOException {
     	String inputLine;
         // Open file
@@ -61,6 +60,10 @@ public final class ProcessCla {
 		in.close();
 	}
 	
+	
+	/**
+	 * @param args
+	 */
 	public void processStrings(String[] args) {
 		for(String anArg :args) {
 	        try {
@@ -75,26 +78,27 @@ public final class ProcessCla {
 		System.out.print("\n*** "+theUrls.size() +" urls loaded successfully from terminal! "+"***\n");		
 	}
 	
+	
 	/**
 	 * Setters and Getters
-	 * 
 	 */
 	public String getFilePath() {
 		return filePath;
 	}
 
-
 	public void setFilePath(String filePath) {
-		ProcessCla.filePath = filePath;
+		filePath = this.filePath;
 	}
 
+	public void setTheUrls(ArrayList<String> theUrls) {
+		this.theUrls = theUrls;
+	}
 
-	public ArrayList<String> getLinks() {
+	public ArrayList<String> getTheUrls() {
 		return theUrls;
 	}
 
-
-	public void addLinks(String link) {
-		ProcessCla.theUrls.add(link);
+	public void addToTheUrls(String link) {
+		theUrls.add(link);
 	}
 }

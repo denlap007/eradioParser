@@ -24,60 +24,23 @@
  */
 package noThreads;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
+import static noThreads.DefaultCaller.*;
+
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ParseLevel1 {
-	static ArrayList<String> stationLinks1 = new ArrayList<String>();
-	static ArrayList<String> unProsessedLinks = new ArrayList<String>();
-	static final int MAX_CONNECTION_ATTEMPTS  = 5;
-	static ArrayList<String> titles = new ArrayList<String>();
-	static String linksFileName = new String("theLinks_1.txt");
-	static String unProcLinksFileName = new String("Unprocessed_links_probably_BAD.txt");
-	static String titlesFileNme = new String("titles.txt");
+	private ArrayList<String> stationLinks1 = new ArrayList<String>();
+	private ArrayList<String> unProsessedLinks = new ArrayList<String>();
+	private ArrayList<String> titles = new ArrayList<String>();
+	private String linksFileName = new String("theLinks_1.txt");
+	private String unProcLinksFileName = new String("Unprocessed_links_probably_BAD.txt");
+	private String titlesFileNme = new String("titles.txt");
 
-	/**
-	 * Print method
-	 * @param msg
-	 * @param args
-	 */
-	public static void print(String msg, Object... args) {
-        System.out.println(String.format(msg, args));
-    }
-	
-	/**
-	 * 
-	 * @param theUrl
-	 * @param conAttempts
-	 * @return
-	 */
-	public static Document parseUrl(String theUrl, int conAttempts){
-	        boolean threw = false;
-	        Document doc = null;
-	        if(conAttempts==MAX_CONNECTION_ATTEMPTS)
-	        	return null;
-	        else{
-		        try {
-		            doc = Jsoup.connect(theUrl).get();
-		        } catch (IOException e) {
-		        	print("%s  THREW EXCEPTION BUT handled", theUrl);
-		            threw = true;
-		        }   
-		        if(threw==true){
-		        	doc = parseUrl(theUrl, conAttempts+1);
-		        }	        
-		        return doc;	
-	        }
-	}
-	
 	
 	/**
 	 * 
@@ -136,28 +99,12 @@ public class ParseLevel1 {
 			writeLinksToFile(unProcLinksFileName, unProsessedLinks);
 	 }//end method 	
 	 
-	 
-	 /**
-	  * 
-	  * @param fileName
-	  * @param contents
-	  * @throws IOException
-	  */
-	 public static void writeToFile(String fileName, String contents) throws IOException{
-	        OutputStreamWriter writer = new OutputStreamWriter(
-	                  new FileOutputStream(fileName, true), "UTF-8");
-	            BufferedWriter fbw = new BufferedWriter(writer);
-	            fbw.write(contents);
-	            fbw.newLine();
-	            fbw.close();
-	 }
-	 
 
 	 /**
 	  * 
 	  * @throws IOException
 	  */
-	 public void getTitles() throws IOException{
+	 public void getStationTitles() throws IOException{
 		 int start=0;
 		 int end=0;
 		 String title;
@@ -168,7 +115,7 @@ public class ParseLevel1 {
 				 end = stationLink.lastIndexOf(".");
 				 title = stationLink.substring(start, end);
 				 titles.add(title);
-				 writeToFile("titles.txt", title);				 
+				 writeToFile(titlesFileNme, title);				 
 			 }
 			 else{
 				 start = stationLink.indexOf("title=")+6;
@@ -182,24 +129,79 @@ public class ParseLevel1 {
 				 }
 				 else{
 					 titles.add("NO TITLE");
-					 writeToFile("titles.txt", "NO TITLE");
+					 writeToFile(titlesFileNme, "NO TITLE");
 				 }				 
 			 }		 
 		 }//end for
 		 print("Size of Links: %s", stationLinks1.size());
 		 print("Size of Titles: %s", titles.size());
 	 }//end method	
-	 
-	 
+
+
 	 /**
-	  * 
-	  * @param fileName
-	  * @param theLinks
-	  * @throws IOException
+	  * Setters and Getters
 	  */
-	 public static void  writeLinksToFile(String fileName, ArrayList<String> theLinks) throws IOException {
-		 for(String link : theLinks) {
-			 writeToFile(fileName, link);
-		 }	 
-	 }
+	public ArrayList<String> getStationLinks1() {
+		return stationLinks1;
+	}
+
+
+	public void setStationLinks1(ArrayList<String> stationLinks1) {
+		this.stationLinks1 = stationLinks1;
+	}
+
+
+	public ArrayList<String> getUnProsessedLinks() {
+		return unProsessedLinks;
+	}
+
+
+	public void setUnProsessedLinks(ArrayList<String> unProsessedLinks) {
+		this.unProsessedLinks = unProsessedLinks;
+	}
+
+
+	public String getLinksFileName() {
+		return linksFileName;
+	}
+
+
+	public void setLinksFileName(String linksFileName) {
+		this.linksFileName = linksFileName;
+	}
+
+
+	public String getUnProcLinksFileName() {
+		return unProcLinksFileName;
+	}
+
+
+	public void setUnProcLinksFileName(String unProcLinksFileName) {
+		this.unProcLinksFileName = unProcLinksFileName;
+	}
+
+
+	public void setTitles(ArrayList<String> titles) {
+		this.titles = titles;
+	}
+	
+	public ArrayList<String> getTitles() {
+		return titles;
+	}
+
+
+	public String getTitlesFileNme() {
+		return titlesFileNme;
+	}
+
+
+	public void setTitlesFileNme(String titlesFileNme) {
+		this.titlesFileNme = titlesFileNme;
+	}
+
+
+
+	
+	 
+	 
 }//end of Class
