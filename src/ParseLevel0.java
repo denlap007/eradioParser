@@ -35,8 +35,21 @@ import org.jsoup.select.Elements;
 public class ParseLevel0 {
 	private ArrayList<Integer> codes = new ArrayList<Integer>();
 	private ArrayList<String> aElements = new ArrayList<String>();
+	
+	/**
+	 * The method checks if the urls loaded
+	 * are from the e-radio.gr Ratings Menu 
+	 * and calls the right method for processing
+	 */
+	public void parseCodes(){
+		if(ratingsLink==true)
+			getRatingsCodes();
+		else
+			getStationCodes();
+	}
 
-    public void getStationCodes(){
+
+	public void getStationCodes(){
     	Document doc = null;
     	for(String aUrl : theUrls){
     		// parse the input html of URL into a DOM document
@@ -53,6 +66,41 @@ public class ParseLevel0 {
     	}
     	
     	//Extract the radio codes from <a> elements
+		int start=0;
+		int end=0;
+		int code=0;
+		String number;
+    	for(String aUrl : aElements){
+			start = aUrl.lastIndexOf("(");
+			end = aUrl.lastIndexOf(")");
+			if ((start!=-1 && end !=-1) && (end-start>1)){
+				number = aUrl.substring(start+1, end);
+				code = Integer.parseInt(number);
+				codes.add(code);
+			}
+    	}
+    	debug(codes);
+    	System.out.print("\nNumber of Codes: " + codes.size()+"\n");
+    }
+    
+    
+	public void getRatingsCodes(){
+    	Document doc = null;
+    	for(String aUrl : theUrls){
+    		// parse the input html of URL into a DOM document
+    		doc = parseUrl(aUrl, 0);
+			 if(doc!=null){
+				 // Select all the <tr> elements with [onclick] attribute that start with 
+				 // "javascript"
+				 Elements links = doc.select("tr[onclick^=javascript]");
+				 for (Element aLink : links)
+					 aElements.add(aLink.attr("onclick"));	
+			 }
+			 else
+				 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
+    	}
+    	
+    	//Extract the radio codes from <tr> elements
 		int start=0;
 		int end=0;
 		int code=0;

@@ -62,7 +62,7 @@ public class theMain {
 		/*
 		 * Print GPL message
 		 */
-		System.out.println("\nEradioParser 1.0 Copyright (C) 2012 Lappas Dionysis \n"+
+		System.out.println("\nEradioParser v1.1 Copyright (C) 2012 Lappas Dionysis \n"+
 				"This program comes with ABSOLUTELY NO WARRANTY. This is free software,\n" +
 				"and you are welcome to redistribute it under certain conditions; \n" +
 				"details: http://www.gnu.org/licenses/gpl.txt \n");
@@ -128,7 +128,7 @@ public class theMain {
 		 * the codes of the radio stations
 		 */
 		ParseLevel0 pl0 = new ParseLevel0();
-		pl0.getStationCodes();	
+		pl0.parseCodes();	
 		
 		/*
 		 * Create an object of Class ParseLevel1. Parse the codes to GetFirstLinks method
