@@ -45,10 +45,10 @@ public class Menu {
 		Document doc = null;
 		BufferedReader br = null;
 		
-		System.out.print("****************** Menu Options ****************** "+
-				"\n1. Extract the whole <e-radio.gr> station playlist. " +
-				"\n2. View the available stations by Category and get a playlist." +
-				"\n3. View the available stations by Location and get a playlist." +
+		System.out.print("******************** Menu Options ******************** "+
+				"\n1. Get a playlist for all the stations at <e-radio.gr>" +
+				"\n2. View the available station Categories and get a playlist." +
+				"\n3. View the available station Locations and get a playlist." +
 				"\n4. View the station Ratings (Top) and get a playlist"+
 				"\n5. Exit."+
 				"\n\n"+
