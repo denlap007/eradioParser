@@ -79,9 +79,7 @@ public class theMain {
 		
 		/*
 		 * Create an object of Class ProcessCla in order to process
-		 * command line arguments if necessary. This Object is
-		 * also necessary for the menu to work, as it (the Menu) accesses 
-		 * the static fields of ProcessCla Class.
+		 * command line arguments if necessary. 
 		 */
 		ProcessCla claObject = new ProcessCla();
 		
