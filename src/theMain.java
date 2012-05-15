@@ -104,8 +104,7 @@ public class theMain {
 		if(args.length==0) {
 			Menu menuObject = new Menu();
 			menuObject.createMenu();
-		}
-		else if(args.length==1){
+		}else if(args.length==1){
 			claObject = new ProcessCla();
 			if(args[0].endsWith(".txt")) {
 				claObject.processFile(args[0]);
@@ -115,8 +114,7 @@ public class theMain {
 				claObject.processStrings(args);	
 				DefaultCaller.setTheUrls(claObject.getTheUrls());
 			}
-		}
-		else{
+		}else{
 			claObject.processStrings(args);		
 			DefaultCaller.setTheUrls(claObject.getTheUrls());
 		}

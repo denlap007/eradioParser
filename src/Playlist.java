@@ -94,8 +94,7 @@ public class Playlist {
 			 if(flag==true){
 				 flag=false;
 				 title = org.apache.commons.lang3.StringEscapeUtils.escapeXml(eradioLinks.get(i));
-			 }
-			 else{
+			 }else{
 				 flag=true;
 				 //escape the xml characters of the url
 				 xmlObject = org.apache.commons.lang3.StringEscapeUtils.escapeXml(eradioLinks.get(i));

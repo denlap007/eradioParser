@@ -60,8 +60,7 @@ public class ParseLevel2 {
     		if(sLink.endsWith(".asx")==true || sLink.endsWith(".swf")==true){
     			stationLinks2.add(sLink);
     			print("Written to file: %s", sLink);
-    		}
-    		else{
+    		}else{
     			doc = parseUrl(sLink, 0);
     			if (doc!=null){
     				Elements media = doc.select("[src]");
@@ -127,27 +126,23 @@ public class ParseLevel2 {
             				if(validUrl(link, 0)==true){
             					eradioLinks.add(title);
             					eradioLinks.add(link);
-            				}
-            				else{
+            				}else{
             					eradio_BAD_Links.add(title);
             					eradio_BAD_Links.add("_______BAD_LINK_______"+link);
             				}
             				break;//if in a .asx you find a link break;
             			}
             		}   				
-    			}
-    			else {
+    			}else {
     				eradio_BAD_Links.add(title);
-					eradio_BAD_Links.add("_______BAD_LINK_______" +sLink);    				
+					eradio_BAD_Links.add("_______BAD_LINK_______" +sLink);
     			}
-    		}
-    		else{
+    		}else{
     			System.out.println(sLink);
     			if(validUrl(sLink, 0)==true) {
     				eradioLinks.add(title);
     				eradioLinks.add(sLink);
-    			}	
-    			else {
+    			}else {
     				eradio_BAD_Links.add(title);
 					eradio_BAD_Links.add("_______BAD_LINK_______" +sLink);
     			}
@@ -178,21 +173,22 @@ public class ParseLevel2 {
 	    huc.connect(); 
 	    try {
 			return huc.getResponseCode();
+			
 		} catch (java.net.SocketException e) {
-			if(e.getMessage().equalsIgnoreCase("Unexpected end of file from server")){
+			if(e.getMessage().equalsIgnoreCase("Unexpected end of file from server"))
 				return OK_CODE; // link still valid so return a small positive int that isn't a http status code
-			}
 			else
 				return ERROR_CODE; //error, return a large int that isn't included in any http status code
+			
 		}catch (java.net.SocketTimeoutException e){
 			if(e.getMessage().equalsIgnoreCase("Read timed out")){
 				if(conAttempts!=MAX_CONNECTION_ATTEMPTS)
 					return getResposeCode(theUrl, conAttempts+1);
 				else
 					return ERROR_CODE; //ERROR return a large int that isn't included in any http status code
-			}
-			else
+			}else
 				return ERROR_CODE;
+			
 		}catch (IOException e){
 			e.printStackTrace();
 			return ERROR_CODE;	//error, return a large int that isn't included in any http status code		
@@ -217,30 +213,29 @@ public class ParseLevel2 {
     	huc.setReadTimeout(READ_TIMEOUT);
     	try {
     		huc.connect();
+    		
     	} catch (java.net.ConnectException e) {
     		print(e.getMessage()+"\n");
     		if(e.getMessage().equalsIgnoreCase("Connection timed out")){
     			if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
     				System.out.println("Recurrencing validUrl method...");
     				return validUrl(theUrl, conAttempts+1);
-    			}
-    			else
+    			}else
     				return false;
-    		}
-    		else
+    		}else
     			return false;
+    		
     	} catch(java.net.SocketTimeoutException e){
     		print(e.getMessage()+"\n");
     		if(e.getMessage().equalsIgnoreCase("connect timed out")){
     			if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
     				System.out.println("Recurrencing validUrl method...");
     				return validUrl(theUrl, conAttempts+1);
-    			}
-    			else
+    			}else
     				return false;
-    		}
-    		else
+    		}else
     			return false;
+    		
     	}catch(IOException e){
     		print(e.getMessage()+"\n");
     		return false;
@@ -261,20 +256,17 @@ public class ParseLevel2 {
     			total_time = total_time + (endTime-startTime);
     			System.out.println("Total elapsed time is :"+ total_time+"\n"); 
     			return true;
-    		}     		
-    		else {//edw erxetai an den prolavei na diavasei h an einai null to content
+    		}else {//edw erxetai an den prolavei na diavasei h an einai null to content
     			endTime = System.currentTimeMillis();
     			total_time = total_time + (endTime-startTime);
     			System.out.println("Total elapsed time is :"+ total_time+"\n"); 
     			if(conAttempts!=MAX_CONNECTION_ATTEMPTS){
     				System.out.println("Recurrencing validUrl method...");
     				return validUrl(theUrl, conAttempts+1);
-    			}
-    			else
+    			}else
     				return false;
     		}	
-    	}
-    	else {
+    	}else {
     		endTime = System.currentTimeMillis();
     		total_time = total_time + (endTime-startTime);
     		System.out.println("Total elapsed time is :"+ total_time+"\n"); 

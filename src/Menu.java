@@ -49,7 +49,7 @@ public class Menu {
 				"\n1. Get a playlist for all the stations at <e-radio.gr>" +
 				"\n2. View the available station Categories and get a playlist." +
 				"\n3. View the available station Locations and get a playlist." +
-				"\n4. View the station Ratings (Top) and get a playlist"+
+				"\n4. View the station Ratings (Top) and get a playlist."+
 				"\n5. Exit."+
 				"\n\n"+
 				"Please make a choice (1-5): ");
@@ -137,8 +137,7 @@ public class Menu {
 		    	 System.out.println("...Processing <"+
 		    			 StringEscapeUtils.unescapeHtml4(locationLinks.get(choice-1).html())+
 		    			 "> locatino");
-		     }
-		     else{
+		     }else{
 		    	System.out.println("Wrong selection!");
 				System.out.println("Exiting program...");
 				System.exit(1); 
@@ -314,7 +313,7 @@ public class Menu {
 										System.out.println("ERROR: Cannot get links from server!");
 										System.out.println("Exiting program...");
 										System.exit(1);
-										}
+									}
 								}else{
 									String link= yearTopSubMenu.get(choice-1).attr("abs:href");
 									doc = parseUrl(link, 0);
@@ -366,31 +365,31 @@ public class Menu {
 										System.out.println("ERROR: Cannot get links from server!");
 										System.out.println("Exiting program...");
 										System.exit(1);
-										}									
-									}
+									}									
+								}
 							}else{
 								System.out.println("Wrong selection...");
 								System.out.println("Exiting program...");
 								System.exit(1);
-								}	
+							}	
 						}else{
 							System.out.println("ERROR: Cannot get links from server!");
 							System.out.println("Exiting program...");
 							System.exit(1);
-							}
+						}
 					}else{
 						theUrls.add(li.get(choice-1).select("a[href").attr("abs:href"));
 						System.out.println("...Processing the <"+
 								StringEscapeUtils.unescapeHtml4(ratingsMenu.get(choice-1).html())+
 								"> category");
 						print(li.get(choice-1).select("a[href]").attr("abs:href") );	
-						}
 					}
-				}else{
-					System.out.println("Wrong selection...");
-					System.out.println("Exiting program...");
-					System.exit(1);
-					}
+				}
+		     }else{
+		    	 System.out.println("Wrong selection...");
+		    	 System.out.println("Exiting program...");
+		    	 System.exit(1);
+		     }
 		     break;
 		     
 		case(5):

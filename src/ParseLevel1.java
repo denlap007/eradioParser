@@ -71,8 +71,7 @@ public class ParseLevel1 {
 			        			stationLinks1.add(temp);
 								break;//link found no need to check another src on this url
 			        		}
-			        	}
-			        	else if (src.tagName().equals("embed")==true){
+			        	}else if (src.tagName().equals("embed")==true){
 			        		linkFound=true;
 			        		temp =  src.attr("abs:src");
 			        		temp = temp.replace(" ", "%");
@@ -85,8 +84,7 @@ public class ParseLevel1 {
 						unProsessedLinks.add(theUrl);
 						continue;		
 			        }
-				}
-				else{
+				}else{
 					print("Unprocessed, no connection for url: %s", theUrl);
 					unProsessedLinks.add(theUrl);
 					continue;								
@@ -116,8 +114,7 @@ public class ParseLevel1 {
 				 title = stationLink.substring(start, end);
 				 titles.add(title);
 				 writeToFile(titlesFileNme, title);				 
-			 }
-			 else{
+			 }else{
 				 start = stationLink.indexOf("title=")+6;
 				 end = stationLink.indexOf("&pt");
 				 if (start!=(6-1) && end!=(-1-2)){
@@ -126,8 +123,7 @@ public class ParseLevel1 {
 					 System.out.println("Station Title: "+ title);
 					 titles.add(title);
 					 writeToFile("titles.txt", title);
-				 }
-				 else{
+				 }else{
 					 titles.add("NO TITLE");
 					 writeToFile(titlesFileNme, "NO TITLE");
 				 }				 

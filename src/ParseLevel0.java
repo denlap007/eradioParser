@@ -60,8 +60,7 @@ public class ParseLevel0 {
 				 Elements links = doc.select("a[href^=javascript]");
 				 for (Element aLink : links)
 					 aElements.add(aLink.outerHtml());	
-			 }
-			 else
+			 }else
 				 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
     	}
     	
@@ -95,8 +94,7 @@ public class ParseLevel0 {
 				 Elements links = doc.select("tr[onclick^=javascript]");
 				 for (Element aLink : links)
 					 aElements.add(aLink.attr("onclick"));	
-			 }
-			 else
+			 }else
 				 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
     	}
     	
