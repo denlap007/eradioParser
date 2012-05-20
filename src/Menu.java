@@ -65,6 +65,12 @@ public class Menu {
 		switch (choice) {
 		case(1):	//GET all the e-radio location links (in order to get all the links)
 			doc = parseUrl(URL, 0);
+		
+			if(doc==null){
+				print("No connection to the server! Exiting...");
+				System.exit(1);
+			}
+			
 			Elements links = doc.select("div[id=paneContainer]").select("a[href*=/locations/]");
 			
 			for(Element link : links)
@@ -74,6 +80,12 @@ public class Menu {
 			
 		case(2):	//Get CATEGORIES
 			doc = parseUrl(URL, 0);
+		
+			if(doc==null){
+				print("No connection to the server! Exiting...");
+				System.exit(1);
+			}
+			
 			Elements categoryLinks = doc.select("div[id=paneContainer]").select("a[href*=/categories/]");
 			
 			System.out.println("E-radio stations available categories: " +
@@ -111,6 +123,12 @@ public class Menu {
 		     
 		case(3)://Get LOCATIONS
 			doc = parseUrl(URL, 0);
+		
+			if(doc==null){
+				print("No connection to the server! Exiting...");
+				System.exit(1);
+			}
+			
 			Elements locationLinks = doc.select("div[id=paneContainer]").select("a[href*=/locations/]");
 			
 			System.out.println("E-radio stations available locations: " +
@@ -148,6 +166,12 @@ public class Menu {
 		case(4):
 			final int YEARLY_RATING = 10;
 			doc = parseUrl(URL, 0);
+			
+			if(doc==null){
+				print("No connection to the server! Exiting...");
+				System.exit(1);
+			}
+			
 			Elements ratingsMenu= doc.select("div[class=menuFly]").select("li").select("a[class=hide]");
 			
 			print("\nStations ratings: \n");
@@ -228,7 +252,7 @@ public class Menu {
 				    			 "> category");
 				    	 ratingsLink =  true;
 				     }else{
-				    	 System.out.println("Wrong selection...");
+				    	 System.out.println("Wrong selection!");
 				    	 System.out.println("Exiting program...");
 				    	 System.exit(1);
 				     }
@@ -305,7 +329,7 @@ public class Menu {
 													"> category");
 											print(elem.get(choice-1).select("a[href]").attr("abs:href"));
 										}else{
-											System.out.println("Wrong selection...");
+											System.out.println("Wrong selection!");
 											System.out.println("Exiting program...");
 											System.exit(1);
 										}		
@@ -357,7 +381,7 @@ public class Menu {
 													"> category");
 											print(elem.get(choice-1).select("a[href]").attr("abs:href"));
 										}else{
-											System.out.println("Wrong selection...");
+											System.out.println("Wrong selection!");
 											System.out.println("Exiting program...");
 											System.exit(1);
 										}		
@@ -368,7 +392,7 @@ public class Menu {
 									}									
 								}
 							}else{
-								System.out.println("Wrong selection...");
+								System.out.println("Wrong selection!");
 								System.out.println("Exiting program...");
 								System.exit(1);
 							}	
@@ -386,7 +410,7 @@ public class Menu {
 					}
 				}
 		     }else{
-		    	 System.out.println("Wrong selection...");
+		    	 System.out.println("Wrong selection!");
 		    	 System.out.println("Exiting program...");
 		    	 System.exit(1);
 		     }
