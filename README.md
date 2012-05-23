@@ -1,19 +1,14 @@
-<p><a id="Author"></p>
-
 <h1>Author</h1>
 
-<p></a>
-Lappas Dionysis (Dio) <a href="&#x6D;&#97;&#105;&#x6C;&#x74;&#111;:&#100;&#105;&#x6F;&#64;&#x66;&#114;&#101;&#101;&#x6C;&#97;&#x62;&#x73;&#46;&#x6E;&#101;&#x74;">&#100;&#105;&#x6F;&#64;&#x66;&#114;&#101;&#101;&#x6C;&#97;&#x62;&#x73;&#46;&#x6E;&#101;&#x74;</a>
-<a id="Description"></p>
+<p>Lappas Dionysis (Dio) <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#x64;&#105;&#x6F;&#64;&#102;&#114;&#101;&#101;&#x6C;a&#98;&#x73;&#x2E;&#110;&#101;&#x74;">&#x64;&#105;&#x6F;&#64;&#102;&#114;&#101;&#101;&#x6C;a&#98;&#x73;&#x2E;&#110;&#101;&#x74;</a></p>
 
 <h1>Description</h1>
 
-<p>This java program extracts the radio station urls and their names found on <a href="http://e-radio.gr">http://e-radio.gr</a> and creates a playlist of your choice. 
-</a></p>
+<p>This java program extracts the radio station urls and their names found on <a href="http://e-radio.gr">http://e-radio.gr</a> and creates a playlist of your choice. </p>
 
 <h1>License</h1>
 
-<p>This sodtware is licensed under <strong>GPL</strong>. For more information, please read the <a href="http://www.gnu.org/licenses/gpl.html">License</a>.</p>
+<p>This software is licensed under <strong>GPL</strong>. For more information, please read the <a href="http://www.gnu.org/licenses/gpl.html">License</a>.</p>
 
 <h2>Thanks to</h2>
 
