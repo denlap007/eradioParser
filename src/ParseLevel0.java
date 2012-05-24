@@ -42,78 +42,77 @@ public class ParseLevel0 {
 	 * and calls the right method for processing
 	 */
 	public void parseCodes(){
-		if(ratingsLink==true)
-			getRatingsCodes();
-		else
-			getStationCodes();
+		for(String aUrl : theUrls){
+			if(aUrl.contains("rating")==true)
+				getRatingsCodes(aUrl);
+			else
+				getStationCodes(aUrl);
+		}
+    	debug(codes);
+    	System.out.print("\nNumber of Codes: " + codes.size()+"\n");
 	}
 
 
-	public void getStationCodes(){
+	public void getStationCodes(String aUrl){
     	Document doc = null;
-    	for(String aUrl : theUrls){
-    		// parse the input html of URL into a DOM document
-    		doc = parseUrl(aUrl, 0);
-			 if(doc!=null){
-				 // Select all the <a> elements with [href] attribute that start with 
-				 // "javascript"
-				 Elements links = doc.select("a[href^=javascript]");
-				 for (Element aLink : links)
-					 aElements.add(aLink.outerHtml());	
-			 }else
-				 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
-    	}
+    	// parse the input html of URL into a DOM document
+    	doc = parseUrl(aUrl, 0);
+		 if(doc!=null){
+			 // Select all the <a> elements with [href] attribute that start with 
+			 // "javascript"
+			 Elements links = doc.select("a[href^=javascript]");
+			 for (Element aLink : links)
+				 aElements.add(aLink.outerHtml());	
+		 }else
+			 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
+
     	
     	//Extract the radio codes from <a> elements
 		int start=0;
 		int end=0;
 		int code=0;
 		String number;
-    	for(String aUrl : aElements){
-			start = aUrl.lastIndexOf("(");
-			end = aUrl.lastIndexOf(")");
+    	for(String theUrl : aElements){
+			start = theUrl.lastIndexOf("(");
+			end = theUrl.lastIndexOf(")");
 			if ((start!=-1 && end !=-1) && (end-start>1)){
-				number = aUrl.substring(start+1, end);
+				number = theUrl.substring(start+1, end);
 				code = Integer.parseInt(number);
 				codes.add(code);
 			}
     	}
-    	debug(codes);
-    	System.out.print("\nNumber of Codes: " + codes.size()+"\n");
+    	aElements.clear();
     }
     
     
-	public void getRatingsCodes(){
+	public void getRatingsCodes(String aUrl){
     	Document doc = null;
-    	for(String aUrl : theUrls){
-    		// parse the input html of URL into a DOM document
-    		doc = parseUrl(aUrl, 0);
-			 if(doc!=null){
-				 // Select all the <tr> elements with [onclick] attribute that start with 
-				 // "javascript"
-				 Elements links = doc.select("tr[onclick^=javascript]");
-				 for (Element aLink : links)
-					 aElements.add(aLink.attr("onclick"));	
-			 }else
-				 print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
-    	}
+    	// parse the input html of URL into a DOM document
+    	doc = parseUrl(aUrl, 0);
+		if(doc!=null){
+		// Select all the <tr> elements with [onclick] attribute that start with 
+		// "javascript"
+		Elements links = doc.select("tr[onclick^=javascript]");
+		for (Element aLink : links)
+			aElements.add(aLink.attr("onclick"));	
+		}else
+			print("THE URL --> %s, CANNOT BE HANDLED", aUrl);
     	
     	//Extract the radio codes from <tr> elements
 		int start=0;
 		int end=0;
 		int code=0;
 		String number;
-    	for(String aUrl : aElements){
-			start = aUrl.lastIndexOf("(");
-			end = aUrl.lastIndexOf(")");
+    	for(String theUrl : aElements){
+			start = theUrl.lastIndexOf("(");
+			end = theUrl.lastIndexOf(")");
 			if ((start!=-1 && end !=-1) && (end-start>1)){
-				number = aUrl.substring(start+1, end);
+				number = theUrl.substring(start+1, end);
 				code = Integer.parseInt(number);
 				codes.add(code);
 			}
     	}
-    	debug(codes);
-    	System.out.print("\nNumber of Codes: " + codes.size()+"\n");
+    	aElements.clear();
     }
 
 

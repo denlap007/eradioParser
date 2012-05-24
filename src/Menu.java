@@ -250,15 +250,12 @@ public class Menu {
 				    	 System.out.println("...Processing the <"+
 				    			 StringEscapeUtils.unescapeHtml4(subMenu.get(choice-1).html())+
 				    			 "> category");
-				    	 ratingsLink =  true;
 				     }else{
 				    	 System.out.println("Wrong selection!");
 				    	 System.out.println("Exiting program...");
 				    	 System.exit(1);
 				     }
 				}else{
-					ratingsLink = true;
-					
 					if(choice==YEARLY_RATING){
 						String  url = li.get(choice-1).select("a[href").attr("abs:href");
 						doc = parseUrl(url, 0);
