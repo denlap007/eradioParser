@@ -8,7 +8,7 @@
 
 <h1>HomePage</h1>
 
-<p>The program's homepage is: <a href="http://eradioparser.freelabs.net">. You will find everything you want to know there.</p>
+<p>The program's homepage is: <a href="http://eradioparser.freelabs.net">http://eradioparser.freelabs.net</a>. You will find everything there is to know there.</p>
 
 <h1>License</h1>
 
