@@ -4,7 +4,11 @@
 
 <h1>Description</h1>
 
-<p>This java program extracts the radio station urls and their names found on <a href="http://e-radio.gr">http://e-radio.gr</a> and creates a playlist of your choice. </p>
+<p>This java program creates a playlist of your choice from <a href="http://e-radio.gr">http://e-radio.gr</a>.</p>
+
+<h1>HomePage</h1>
+
+<p>The program's homepage is: <a href="http://eradioparser.freelabs.net">http://eradioparser.freelabs.net</a>. You will find everything there is to know there.</p>
 
 <h1>License</h1>
 
@@ -17,3 +21,7 @@
 <h2>Current Version</h2>
 
 <p>1.1</p>
+
+<h2>Quick Download link</h2>
+
+<p>Here's a quick link to download the program. <a title="download"; href="http://eradioparser.freelabs.net/downloads/eradioParser-1.1.jar">Download eradioparser</a></p>
