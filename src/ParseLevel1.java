@@ -116,7 +116,7 @@ public class ParseLevel1 {
 				 writeToFile(titlesFileNme, title);				 
 			 }else{
 				 start = stationLink.indexOf("title=")+6;
-				 end = stationLink.indexOf("&pt");
+				 end = stationLink.indexOf("&codecID");
 				 if (start!=(6-1) && end!=(-1-2)){
 					 title = stationLink.substring(start, end);
 					 title = title.replace("%", " ");
